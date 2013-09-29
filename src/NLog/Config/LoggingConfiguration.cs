@@ -167,7 +167,11 @@ namespace NLog.Config
         /// </param>
         public void RemoveTarget(string name)
         {
-            this.targets.Remove(name);
+            if (!targets.ContainsKey(name))
+                return;
+
+            targets[name].Close();
+            targets.Remove(name);
         }
 
         /// <summary>
